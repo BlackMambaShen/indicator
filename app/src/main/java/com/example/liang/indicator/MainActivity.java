@@ -1,5 +1,6 @@
 package com.example.liang.indicator;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> dataList;
     private ViewPager vp_content;
     private LinearLayout ll_indicator;
-
+    private int currentPosition=0;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -31,6 +32,28 @@ public class MainActivity extends AppCompatActivity {
             button.setBackground(null);
             ll_indicator.addView(button);
         }
+
+        vp_content.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                    if (currentPosition!=position){
+                        ll_indicator.getChildAt(currentPosition).setBackgroundColor(Color.WHITE);
+                    }
+                    ll_indicator.getChildAt(position).setBackgroundColor(Color.RED);
+                    currentPosition=position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        ll_indicator.getChildAt(0).setBackgroundColor(Color.RED);
     }
 
     private void initView() {
